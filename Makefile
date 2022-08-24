@@ -4,13 +4,13 @@ VERSION   = 1.0.0
 PREFIX	  = /usr/bin
 MANPREFIX = /usr/local/share/man
 
-linux:
+${BUILDDIR}/meowfetch:
 	mkdir -p ${BUILDDIR}
 	GOOS=linux go build \
 	     -ldflags="${LDFLAGS}" \
 	     -o ${BUILDDIR}/meowfetch main.go
 
-install: linux
+install: ${BUILDDIR}/meowfetch
 	cp -f ${BUILDDIR}/meowfetch ${PREFIX}/
 	chmod 755 ${PREFIX}/meowfetch
 	mkdir -p ${MANPREFIX}/man1
