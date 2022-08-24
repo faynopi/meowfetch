@@ -15,4 +15,4 @@ jobs:
         go-version: 1.18
 
     - name: Build
-      run: make linux
+      run: make build

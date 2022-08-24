@@ -10,7 +10,9 @@ ${BUILDDIR}/meowfetch:
 	     -ldflags="${LDFLAGS}" \
 	     -o ${BUILDDIR}/meowfetch main.go
 
-install: ${BUILDDIR}/meowfetch
+build: ${BUILDDIR}/meowfetch
+
+install: build
 	cp -f ${BUILDDIR}/meowfetch ${PREFIX}/
 	chmod 755 ${PREFIX}/meowfetch
 	mkdir -p ${MANPREFIX}/man1
