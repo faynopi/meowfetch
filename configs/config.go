@@ -89,9 +89,9 @@ func GetTarget() string {
     conf_path := path.Join(homedir, ".meow.conf")
     if _, err := os.Stat(conf_path); !errors.Is(err, os.ErrNotExist) {
         return conf_path
+    } else {
+        return "/etc/meow.conf"
     }
-
-    return ""
 }
 
 func CreateConfig() {
