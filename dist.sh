@@ -33,11 +33,11 @@ IFS=" "; for TARGET in $TARGETS; do
     sed "s/{VERSION}/${VERSION}/g" < meowfetch.1 > ${TD}${MANPREFIX}/meowfetch.1
 	chmod 644 ${TD}${MANPREFIX}/meowfetch.1
 
-	tar -cf "${TD}.tar" --absolute-names "$TD"
+    cd dist
+    tar -cf "$(basename $TD).tar" "$(basename $TD)"
 	gzip ${TD}.tar
+    cd - > /dev/null
 
     rm -rf "$TD"
 
 done
-
-# mkdir -p
