@@ -60,8 +60,8 @@ func GetTarget() string {
         return HomeConfigPath
     }
 
-    FallbackConf := path.Join(homedir, ".meow.conf")
-    if runtime.GOOS == "linux" && checkFileExist(FallbackConf) {
+    LinuxFallbackConf := "/etc/meow.conf"
+    if runtime.GOOS == "linux" && checkFileExist(LinuxFallbackConf) {
         return HomeConfigPath
     }
 
