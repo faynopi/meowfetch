@@ -3,6 +3,7 @@ package configs
 import (
 	"os"
 	"path"
+	"runtime"
 
 	_ "embed"
 
@@ -56,6 +57,11 @@ func GetTarget() string {
 
     HomeConfigPath := path.Join(homedir, ".meow.conf")
     if checkFileExist(HomeConfigPath) {
+        return HomeConfigPath
+    }
+
+    FallbackConf := path.Join(homedir, ".meow.conf")
+    if runtime.GOOS == "linux" && checkFileExist(FallbackConf) {
         return HomeConfigPath
     }
 
