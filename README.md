@@ -52,10 +52,14 @@ make install
 <br>
 
 ## Configuration
-Your configuration can be saved in `$XDG_CONFIG_HOME/meowfetch/meow.conf` or `$HOME/.meow.conf`.
-configuration files are written in [toml](https://toml.io/) which makes it easier to read and parse.
-Read the [wiki](https://github.com/Itsnexn/meowfetch/wiki) additional details on the configuration file.
-You can view the default configuration file [here](/configs/meow.conf).
+Your configuration can be saved in `$XDG_CONFIG_HOME/meowfetch/meow.conf` or
+`$HOME/.meow.conf`. There is also a fallback path for configuration across
+operating systems, which is listed on the wiki page.
+
+configuration files are written in [toml](https://toml.io/) which makes it
+easier to read and parse. Read the [wiki](https://github.com/Itsnexn/meowfetch/wiki)
+additional details on the configuration file. You can view the default configuration
+file [here](/configs/meow.conf).
 
 ## TODO
 - [ ] New widgets
