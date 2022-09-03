@@ -12,7 +12,8 @@ TARGETS="386 amd64 arm arm64"
 VERSION="$(make opts| grep VERSION | cut -d':' -f 2-)"
 BUILDDIR="$(make opts| grep BUILDDIR | cut -d':' -f 2-)"
 
-[[ -d "$DIR/dist" ]] && rm -rf "$DIR/dist" || mkdir -p "$DIR/dist"
+[[ -d "$DIR/dist" ]] && rm -rf "$DIR/dist"
+mkdir -p "$DIR/dist"
 
 IFS=" "; for TARGET in $TARGETS; do
     echo "Building meowfetch $VERSION for $TARGET"
@@ -20,6 +21,7 @@ IFS=" "; for TARGET in $TARGETS; do
     [[ -e "$BUILDDIR/meowfetch" ]] || continiue
 
     TD="$DIR/dist/meowfetch-${VERSION}-${TARGET}" # TD => TargetDir
+    mkdir -p $TD
 
     SHA256SUM="$(sha256sum "${BUILDDIR}/meowfetch" | cut -d' ' -f1)"
     echo "$SHA256SUM meowfetch-$VERSION-$TARGET" >> "$DIR/dist/sha256sum.txt"
@@ -27,7 +29,7 @@ IFS=" "; for TARGET in $TARGETS; do
 	cp -f ${BUILDDIR}/meowfetch "${TD}"
 	chmod 755 ${TD}/meowfetch
 
-    sed "s/{VERSION}/${VERSION}/g" < meowfetch.1 > ${TD}/meowfetch.1
+    sed "s/{VERSION}/${VERSION}/g" < meowfetch.1 > "${TD}/meowfetch.1"
 	chmod 644 ${TD}/meowfetch.1
 
     cd dist
