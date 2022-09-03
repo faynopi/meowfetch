@@ -1,12 +1,12 @@
 BUILDDIR  ?= $(CURDIR)/build
 LDFLAGS   +=-s -w
-VERSION   = 1.0.0
+VERSION   = 1.0.1
 PREFIX	  = /usr/bin
 MANPREFIX = /usr/local/share/man
 
 ${BUILDDIR}/meowfetch:
 	mkdir -p ${BUILDDIR}
-	GOOS=linux go build \
+	GOOS=linux GOARCH=${GOARCH} go build \
 	     -ldflags="${LDFLAGS}" \
 	     -o ${BUILDDIR}/meowfetch main.go
 
@@ -26,6 +26,12 @@ uninstall:
 .PHONY: run
 run:
 	go run main.go
+
+.PHONY: version
+opts:
+	@echo "BUILDDIR:${BUILDDIR}"
+	@echo "LDFLAGS:${LDFLAGS}"
+	@echo "VERSION:${VERSION}"
 
 .PHONY: clean
 clean:
