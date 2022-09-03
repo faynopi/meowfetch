@@ -8,8 +8,6 @@ if [[ "$DIR" != "$PWD" ]]; then
     exit 1
 fi
 
-PREFIX=/usr/bin
-MANPREFIX="/usr/local/share/man/man1"
 TARGETS="386 amd64 arm arm64"
 VERSION="$(make opts| grep VERSION | cut -d':' -f 2-)"
 BUILDDIR="$(make opts| grep BUILDDIR | cut -d':' -f 2-)"
@@ -22,16 +20,15 @@ IFS=" "; for TARGET in $TARGETS; do
     [[ -e "$BUILDDIR/meowfetch" ]] || continiue
 
     TD="$DIR/dist/meowfetch-${VERSION}-${TARGET}" # TD => TargetDir
-    mkdir -p $TD ${TD}${PREFIX} ${TD}${MANPREFIX}
 
     SHA256SUM="$(sha256sum "${BUILDDIR}/meowfetch" | cut -d' ' -f1)"
     echo "$SHA256SUM meowfetch-$VERSION-$TARGET" >> "$DIR/dist/sha256sum.txt"
 
-	cp -f ${BUILDDIR}/meowfetch ${TD}${PREFIX}/
-	chmod 755 ${TD}${PREFIX}/meowfetch
+	cp -f ${BUILDDIR}/meowfetch "${TD}"
+	chmod 755 ${TD}/meowfetch
 
-    sed "s/{VERSION}/${VERSION}/g" < meowfetch.1 > ${TD}${MANPREFIX}/meowfetch.1
-	chmod 644 ${TD}${MANPREFIX}/meowfetch.1
+    sed "s/{VERSION}/${VERSION}/g" < meowfetch.1 > ${TD}/meowfetch.1
+	chmod 644 ${TD}/meowfetch.1
 
     cd dist
     tar -cf "$(basename $TD).tar" "$(basename $TD)"
