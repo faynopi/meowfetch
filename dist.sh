@@ -13,7 +13,16 @@ VERSION="$(make opts| grep VERSION | cut -d':' -f 2-)"
 BUILDDIR="$(make opts| grep BUILDDIR | cut -d':' -f 2-)"
 
 [[ -d "$DIR/dist" ]] && rm -rf "$DIR/dist"
+[[ -n $(find $DIR -type f -iname "Source code.*") ]] && rm "$DIR/Source code."*
+
+cd ../
+tar -cf "Source code.tar" "$(basename $DIR)"
+mv "Source code.tar" $DIR
+cd - > /dev/null
+gzip "Source code.tar"
+
 mkdir -p "$DIR/dist"
+cp -f "$DIR/Source code.tar.gz" "$DIR/dist"
 
 IFS=" "; for TARGET in $TARGETS; do
     echo "Building meowfetch $VERSION for $TARGET"
