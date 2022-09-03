@@ -13,10 +13,10 @@ ${BUILDDIR}/meowfetch:
 build: ${BUILDDIR}/meowfetch
 
 install: build
-	cp -f ${BUILDDIR}/meowfetch ${PREFIX}/
-	chmod 755 ${PREFIX}/meowfetch
-	mkdir -p ${MANPREFIX}/man1
-	sed "s/{VERSION}/${VERSION}/g" < meowfetch.1 > ${MANPREFIX}/man1/meowfetch.1
+	cp -f ${BUILDDIR}/meowfetch ${DESTDIR}${PREFIX}/
+	chmod 755 ${DESTDIR}${PREFIX}/meowfetch
+	mkdir -p ${DESTDIR}${MANPREFIX}/man1
+	sed "s/{VERSION}/${VERSION}/g" < meowfetch.1 > ${DESTDIR}${MANPREFIX}/man1/meowfetch.1
 	chmod 644 ${DESTDIR}${MANPREFIX}/man1/meowfetch.1
 
 uninstall:
