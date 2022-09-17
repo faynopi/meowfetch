@@ -3,7 +3,6 @@ package configs
 import (
 	"os"
 	"path"
-	"runtime"
 
 	_ "embed"
 
@@ -12,6 +11,7 @@ import (
 
 var (
     xdg_confdir, XdgConfHomeExist = os.LookupEnv("XDG_CONFIG_HOME")
+    fallback_linuxdir, fallback_linuxExist = os.LookupEnv("/etc/")
     homedir, _          = os.UserHomeDir()
 
     // Config values
@@ -60,9 +60,11 @@ func GetTarget() string {
         return HomeConfigPath
     }
 
-    LinuxFallbackConf := "/etc/meow.conf"
-    if runtime.GOOS == "linux" && checkFileExist(LinuxFallbackConf) {
-        return HomeConfigPath
+    if fallback_linuxExist {
+        fallback_linuxConfPath := path.Join(fallback_linuxdir, "meow.conf")
+        if checkFileExist(fallback_linuxConfPath) {
+            return fallback_linuxConfPath
+        }
     }
 
     return ""
